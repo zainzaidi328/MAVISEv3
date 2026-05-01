@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MAVISE — Multimodal Audio-Visual Speech Enhancement. Clarity, Reimagined.">
+  <title>MAVISE</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='80' height='80' x='10' y='10' rx='8' fill='%23111'/></svg>">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3/dist/jszip.min.js"></script>
+</head>
+<body>
+
+<!-- Grain Overlay -->
+<div class="grain-overlay"></div>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav class="nav" id="main-nav" style="display:none;">
+  <div class="nav-brand">
+    <span class="nav-brand-icon"></span>
+    MAVISE
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" data-page="dashboard" id="nav-dashboard">Dashboard</button>
+    <button class="nav-link" data-page="studio" id="nav-studio">Studio</button>
+    <button class="nav-link" data-page="saved" id="nav-saved">Library</button>
+    <button class="nav-link-pill" id="nav-logout">Logout</button>
+    <span class="nav-user" id="nav-username"></span>
+  </div>
+</nav>
+
+<!-- ═══ AUTH PAGE ═══ -->
+<div class="page active" id="page-auth">
+  <div class="hero">
+    <div class="fade-up">
+      <div class="echo-stack hero-title" id="hero-echo">
+        <span class="echo-layer echo-l1">MAVISE</span>
+        <span class="echo-layer echo-l2">MAVISE</span>
+        <span class="echo-layer echo-l3">MAVISE</span>
+        <span class="echo-layer echo-l4">MAVISE</span>
+        <span class="echo-front">MAVISE</span>
+      </div>
+    </div>
+    <p class="hero-sub fade-up-d1">Multimodal Audio-Visual Speech Enhancement</p>
+    <p class="section-label fade-up-d2" style="margin-top:1.2rem;">Clarity, Reimagined</p>
+
+    <!-- Hairline -->
+    <div class="hairline fade-up-d2" style="margin-top:3rem;"></div>
+
+    <!-- Auth Card -->
+    <div class="container-narrow fade-up-d3" style="width:100%;max-width:420px;">
+      <div class="card" id="auth-card">
+        <!-- Login Form -->
+        <div id="login-form">
+          <h3 style="font-size:1.4rem;margin-bottom:1.5rem;">Sign In</h3>
+          <div class="form-group">
+            <label class="form-label" for="login-user">Username</label>
+            <input class="form-input" type="text" id="login-user" autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="login-pass">Password</label>
+            <input class="form-input" type="password" id="login-pass" autocomplete="current-password">
+          </div>
+          <div id="login-error" class="msg-error" style="display:none;margin-bottom:1rem;"></div>
+          <button class="btn btn-primary btn-full" id="login-btn">Sign In</button>
+          <div class="hairline-h"></div>
+          <button class="btn btn-secondary btn-full" id="show-signup-btn">Create New Account</button>
+        </div>
+        <!-- Signup Form -->
+        <div id="signup-form" style="display:none;">
+          <h3 style="font-size:1.4rem;margin-bottom:1.5rem;">Create Account</h3>
+          <div class="form-group">
+            <label class="form-label" for="signup-user">Username</label>
+            <input class="form-input" type="text" id="signup-user" autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-pass">Password</label>
+            <input class="form-input" type="password" id="signup-pass" autocomplete="new-password">
+          </div>
+          <div id="signup-error" class="msg-error" style="display:none;margin-bottom:1rem;"></div>
+          <div id="signup-success" class="msg-success" style="display:none;margin-bottom:1rem;"></div>
+          <button class="btn btn-primary btn-full" id="signup-btn">Create Account</button>
+          <div class="hairline-h"></div>
+          <button class="btn btn-secondary btn-full" id="show-login-btn">Already have an account? Sign In</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Philosophy Section -->
+  <div class="page-section" style="padding-bottom:0;">
+    <div class="hairline fade-up"></div>
+    <div class="container" style="text-align:center;">
+      <p class="philosophy-quote fade-up">
+        We don't just remove noise — we <em>reconstruct</em> human speech using the visual geometry of spoken language.
+      </p>
+    </div>
+  </div>
+
+  <!-- Service Cards -->
+  <div class="page-section">
+    <div class="container">
+      <div class="grid-3 fade-up-d1">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="service-title">Real-Time Processing</div>
+          <div class="service-desc">Processes video and audio streams through our deep neural network in seconds, not hours.</div>
+          <span class="service-cta">Learn more <span>→</span></span>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <div class="service-title">Lip-Reading AI</div>
+          <div class="service-desc">Our visual encoder extracts phonetic cues directly from facial movements to reconstruct speech.</div>
+          <span class="service-cta">Learn more <span>→</span></span>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          </div>
+          <div class="service-title">Auto Subtitles</div>
+          <div class="service-desc">Every enhanced video comes with AI-generated VTT subtitles, powered by Whisper transcription.</div>
+          <span class="service-cta">Learn more <span>→</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DASHBOARD PAGE ═══ -->
+<div class="page" id="page-dashboard">
+  <div class="container" style="padding-top:3rem;">
+    <div class="section-label fade-up">Overview</div>
+    <div class="echo-stack fade-up" style="font-size:clamp(2.5rem,5vw,4.5rem);margin-bottom:0.5rem;">
+      <span class="echo-layer echo-l1">Dashboard</span>
+      <span class="echo-layer echo-l2">Dashboard</span>
+      <span class="echo-layer echo-l3">Dashboard</span>
+      <span class="echo-layer echo-l4">Dashboard</span>
+      <span class="echo-front">Dashboard</span>
+    </div>
+    <p class="section-subtitle fade-up-d1">Track your enhancement history and system metrics.</p>
+
+    <!-- Stats Row -->
+    <div class="grid-3 fade-up-d2" style="margin-top:2.5rem;">
+      <div class="card-dark">
+        <div class="grain-card"></div>
+        <div class="stat-label">Total Enhancements</div>
+        <div class="stat-value stat-value-emerald" id="stat-total">0</div>
+      </div>
+      <div class="card-dark">
+        <div class="grain-card"></div>
+        <div class="stat-label">Model Version</div>
+        <div class="stat-value stat-value-white">v2.1</div>
+      </div>
+      <div class="card-dark">
+        <div class="grain-card"></div>
+        <div class="stat-label">System Status</div>
+        <div class="stat-value stat-value-emerald" style="display:flex;align-items:center;gap:0.5rem;">
+          Online <span class="badge badge-success badge-pulse"><span class="badge-dot"></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hairline-h"></div>
+
+    <!-- Chart + Recent -->
+    <div class="grid-2-1 fade-up-d3">
+      <div>
+        <div class="section-label">Enhancement Activity</div>
+        <div class="card">
+          <div class="chart-container"><canvas id="activity-chart"></canvas></div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Recent Activity</div>
+        <div class="card" id="recent-activity" style="min-height:260px;">
+          <div class="msg-info">No recent activity yet.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STUDIO PAGE ═══ -->
+<div class="page" id="page-studio">
+  <div class="container" style="padding-top:3rem;">
+    <div class="section-label fade-up">AI Workspace</div>
+    <div class="echo-stack fade-up" style="font-size:clamp(2.5rem,5vw,4.5rem);margin-bottom:0.5rem;">
+      <span class="echo-layer echo-l1">Studio</span>
+      <span class="echo-layer echo-l2">Studio</span>
+      <span class="echo-layer echo-l3">Studio</span>
+      <span class="echo-layer echo-l4">Studio</span>
+      <span class="echo-front">Studio</span>
+    </div>
+    <p class="section-subtitle fade-up-d1">Upload a noisy video. MAVISE uses lip-reading AI to reconstruct clean speech.</p>
+
+    <div class="grid-1-1 fade-up-d2" style="margin-top:2.5rem;">
+      <!-- Input Column -->
+      <div>
+        <div class="card">
+          <div class="section-label">Input</div>
+          <!-- Mode Toggle -->
+          <div class="mode-toggle" style="display:flex;gap:0.25rem;margin-bottom:1.25rem;background:var(--bg);border-radius:var(--radius-pill);padding:3px;">
+            <button class="mode-btn active" id="mode-upload" style="flex:1;padding:0.5rem;border:none;border-radius:var(--radius-pill);font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all .2s ease;background:var(--ink);color:var(--bg);">
+              ◻ Upload
+            </button>
+            <button class="mode-btn" id="mode-camera" style="flex:1;padding:0.5rem;border:none;border-radius:var(--radius-pill);font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all .2s ease;background:transparent;color:var(--gray1);">
+              ● Record
+            </button>
+          </div>
+
+          <!-- Upload Mode -->
+          <div id="upload-mode">
+            <h3 style="font-size:1.2rem;margin-bottom:1rem;">Upload Media</h3>
+            <div class="upload-zone" id="video-upload-zone">
+              <input type="file" id="video-input" accept=".mp4,.avi,.mov">
+              <div class="upload-icon">◻</div>
+              <div class="upload-text">Drop video file or click to browse</div>
+              <div class="upload-hint">MP4, AVI, MOV</div>
+            </div>
+            <div id="video-preview" style="display:none;margin-top:1rem;">
+              <div class="video-container"><video id="preview-player" controls></video></div>
+              <div style="font-size:0.82rem;color:var(--gray1);margin-bottom:1rem;" id="video-filename"></div>
+            </div>
+          </div>
+
+          <!-- Camera Mode -->
+          <div id="camera-mode" style="display:none;">
+            <h3 style="font-size:1.2rem;margin-bottom:1rem;">Record from Camera</h3>
+            <!-- Live Preview -->
+            <div class="video-container" id="cam-preview-wrap" style="position:relative;">
+              <video id="cam-live" autoplay muted playsinline style="width:100%;display:block;transform:scaleX(-1);"></video>
+              <div id="cam-recording-badge" style="display:none;position:absolute;top:12px;right:12px;background:rgba(220,38,38,0.9);color:#fff;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.7rem;border-radius:var(--radius-pill);animation:pulse 1.5s infinite;">
+                ● REC
+              </div>
+              <div id="cam-timer" style="display:none;position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,0.6);color:#fff;font-size:0.85rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:var(--radius-sm);font-family:var(--font-body);">
+                00:00
+              </div>
+            </div>
+            <!-- Recorded playback (hidden until recording done) -->
+            <div id="cam-playback" style="display:none;margin-top:0.75rem;">
+              <div class="video-container"><video id="cam-recorded" controls></video></div>
+              <div style="font-size:0.82rem;color:var(--gray1);margin-top:0.35rem;" id="cam-rec-info"></div>
+            </div>
+            <!-- Camera Controls -->
+            <div style="display:flex;gap:0.5rem;margin-top:1rem;">
+              <button class="btn btn-secondary btn-full btn-sm" id="cam-start-btn">● Start Recording</button>
+              <button class="btn btn-primary btn-full btn-sm" id="cam-stop-btn" style="display:none;">◼ Stop</button>
+              <button class="btn btn-secondary btn-full btn-sm" id="cam-retake-btn" style="display:none;">↻ Retake</button>
+            </div>
+          </div>
+
+          <!-- Audio upload (shared) -->
+          <div style="margin-top:1rem;">
+            <div class="upload-zone" id="audio-upload-zone" style="padding:1.5rem;">
+              <input type="file" id="audio-input" accept=".wav,.mp3">
+              <div class="upload-text" style="font-size:0.82rem;">Optional: External noisy audio (defaults to video track)</div>
+              <div class="upload-hint">WAV, MP3</div>
+            </div>
+            <div id="audio-filename" style="font-size:0.8rem;color:var(--gray1);margin-top:0.5rem;"></div>
+          </div>
+          <button class="btn btn-primary btn-full" id="enhance-btn" style="margin-top:1.5rem;" disabled>
+            <span class="btn-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></span>
+            Enhance Speech
+          </button>
+        </div>
+      </div>
+      <!-- Output Column -->
+      <div>
+        <div class="card" id="output-card">
+          <div class="section-label">Output</div>
+          <h3 style="font-size:1.2rem;margin-bottom:1rem;">Enhanced Result</h3>
+          <div id="output-placeholder" class="msg-info">Awaiting upload and processing…</div>
+          <div id="output-progress" style="display:none;">
+            <div class="progress-wrap">
+              <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+              <div class="progress-status" id="progress-status">Initializing…</div>
+            </div>
+          </div>
+          <div id="output-result" style="display:none;">
+            <div class="msg-success" style="margin-bottom:1rem;">Enhancement and audio merge complete.</div>
+            <div class="video-container"><video id="result-player" controls></video></div>
+            
+            <div class="grid-2" style="margin-top:1.5rem;gap:0.75rem;">
+              <!-- Stats Button -->
+              <button class="btn btn-secondary btn-full btn-sm" id="stats-toggle-btn">
+                <span>📊 View Stats</span>
+              </button>
+              <!-- Compare Button -->
+              <button class="btn btn-secondary btn-full btn-sm" id="compare-toggle-btn">
+                <span>📈 Compare Performance</span>
+              </button>
+            </div>
+            
+            <!-- 1. Quick Stats Card -->
+            <div id="stats-card" style="display:none;margin-top:0.75rem;animation:slideDown 0.3s ease-out;">
+              <div class="card-dark" style="padding:1.5rem;background:rgba(255,255,255,0.03);">
+                <div class="grid-2" style="gap:1rem;">
+                  <div style="text-align:center;">
+                    <div class="section-label" style="font-size:0.6rem;">PESQ Score</div>
+                    <div class="stat-value" id="stat-pesq-quick" style="font-size:1.8rem;color:var(--emerald);">--</div>
+                  </div>
+                  <div style="text-align:center;">
+                    <div class="section-label" style="font-size:0.6rem;">STOI Score</div>
+                    <div class="stat-value" id="stat-stoi-quick" style="font-size:1.8rem;color:var(--emerald);">--</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Detailed Comparison Card -->
+            <div id="compare-card" style="display:none;margin-top:0.75rem;animation:slideDown 0.3s ease-out;">
+              <div class="card-dark" style="padding:1.5rem;background:rgba(255,255,255,0.04);border-color:var(--emerald);">
+                <div class="section-label" style="font-size:0.6rem;text-align:center;margin-bottom:1.5rem;">Input vs Output Comparison</div>
+                
+                <div class="comparison-row" style="margin-bottom:2rem;">
+                   <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--gray1);margin-bottom:0.6rem;">
+                     <span>Speech Quality (PESQ)</span>
+                     <span id="pesq-gain" style="color:var(--emerald);font-weight:700;">+0.00</span>
+                   </div>
+                   <div style="height:4px;background:rgba(255,255,255,0.05);border-radius:2px;margin-bottom:4px;">
+                      <div id="pesq-input-bar" style="height:100%;width:0%;background:var(--gray1);border-radius:2px;opacity:0.6;"></div>
+                   </div>
+                   <div style="height:6px;background:rgba(255,255,255,0.08);border-radius:3px;">
+                      <div id="pesq-output-bar" style="height:100%;width:0%;background:var(--emerald);border-radius:3px;box-shadow:0 0 10px var(--emerald);"></div>
+                   </div>
+                </div>
+
+                <div class="comparison-row">
+                   <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--gray1);margin-bottom:0.6rem;">
+                     <span>Intelligibility (STOI)</span>
+                     <span id="stoi-gain" style="color:var(--emerald);font-weight:700;">+0%</span>
+                   </div>
+                   <div style="height:4px;background:rgba(255,255,255,0.05);border-radius:2px;margin-bottom:4px;">
+                      <div id="stoi-input-bar" style="height:100%;width:0%;background:var(--gray1);border-radius:2px;opacity:0.6;"></div>
+                   </div>
+                   <div style="height:6px;background:rgba(255,255,255,0.08);border-radius:3px;">
+                      <div id="stoi-output-bar" style="height:100%;width:0%;background:var(--emerald);border-radius:3px;box-shadow:0 0 10px var(--emerald);"></div>
+                   </div>
+                </div>
+
+                <p style="font-size:0.6rem;color:var(--gray1);text-align:center;margin-top:1.5rem;">
+                  <span style="display:inline-block;width:8px;height:8px;background:var(--gray1);border-radius:2px;"></span> Input &nbsp;
+                  <span style="display:inline-block;width:8px;height:8px;background:var(--emerald);border-radius:2px;"></span> AI Enhanced
+                </p>
+              </div>
+            </div>
+
+            <div class="grid-2" style="margin-top:1rem;">
+              <a class="btn btn-secondary btn-full btn-sm" id="download-btn" download>↓ Download Video</a>
+              <button class="btn btn-primary btn-full btn-sm" id="save-btn">Save to Account</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SAVED VIDEOS PAGE ═══ -->
+<div class="page" id="page-saved">
+  <div class="container" style="padding-top:3rem;">
+    <div class="section-label fade-up">Library</div>
+    <div class="echo-stack fade-up" style="font-size:clamp(2.5rem,5vw,4.5rem);margin-bottom:0.5rem;">
+      <span class="echo-layer echo-l1">Saved</span>
+      <span class="echo-layer echo-l2">Saved</span>
+      <span class="echo-layer echo-l3">Saved</span>
+      <span class="echo-layer echo-l4">Saved</span>
+      <span class="echo-front">Saved</span>
+    </div>
+    <p class="section-subtitle fade-up-d1">Your enhanced video history.</p>
+    <div id="saved-grid" class="grid-2 fade-up-d2" style="margin-top:2.5rem;"></div>
+    <div id="saved-empty" class="msg-info fade-up-d2" style="margin-top:2.5rem;display:none;">
+      No saved videos yet. Enhance a video in the Studio and save it here.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer" id="main-footer">
+  <div class="grain-card"></div>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">◼ MAVISE</div>
+      <p class="footer-desc">Multimodal Audio-Visual Speech Enhancement. Using lip-reading AI to reconstruct human speech from noisy environments.</p>
+    </div>
+    <div>
+      <div class="footer-heading">Navigation</div>
+      <a class="footer-link" href="#" data-page="dashboard">Dashboard</a>
+      <a class="footer-link" href="#" data-page="studio">Studio</a>
+      <a class="footer-link" href="#" data-page="saved">Library</a>
+    </div>
+    <div>
+      <div class="footer-heading">Technology</div>
+      <span class="footer-link">Deep Learning</span>
+      <span class="footer-link">Visual Encoder</span>
+      <span class="footer-link">Whisper ASR</span>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <span class="footer-link">mavise@research.ai</span>
+      <span class="footer-link">MAVISE v2.1</span>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 MAVISE Research. All rights reserved.</div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

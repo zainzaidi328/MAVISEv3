@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data & Models
+# checkpoints/ is VERY LARGE, excluding for primary code push
+checkpoints/
+data/
+
+# Exclude large transient/personal data
+temp_uploads/
+saved_videos/
+MAVISE_FYP_v2/
+
+# Database
+# *.db
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+# debug_log.txt
+*.log
+
+# Media outputs
+# *.wav
+# *.mp4
+# *.vtt
+# out.mp4
+# enhanced.wav

@@ -1,0 +1,11 @@
+--- Starting MAVISE Run Script ---
+Python Executable: C:\Users\Hp\AppData\Local\Programs\Python\Python310\python.exe
+Script Directory: C:\Users\Hp\OneDrive\Desktop\MAVISE_FYP_v3\MAVISE_FYPv3\MAVISE_FYPv3
+Checking dependencies...
+Dependencies found!
+Starting FastAPI Backend...
+Starting Streamlit Frontend...
+
+Both servers started in the background.
+Check http://127.0.0.1:8501
+--- Script finished initialization ---
